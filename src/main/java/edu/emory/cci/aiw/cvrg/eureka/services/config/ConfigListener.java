@@ -51,7 +51,7 @@ import com.google.inject.servlet.GuiceServletContextListener;
 import javax.servlet.ServletContext;
 import org.eurekaclinical.common.config.ClientSessionListener;
 import org.eurekaclinical.common.config.InjectorSupport;
-import org.eurekaclinical.common.config.ProxyingServiceServletModule;
+import org.eurekaclinical.common.config.ProxyingServiceServletModuleWithAutoAuthorization;
 
 /**
  * Set up the Guice dependency injection engine. Uses two modules:
@@ -74,7 +74,7 @@ public class ConfigListener extends GuiceServletContextListener {
 		this.injector = new InjectorSupport(
 				new Module[]{
 					new AppModule(this.etlClientProvider),
-					new ProxyingServiceServletModule(this.serviceProperties, PACKAGE_NAMES),
+					new ProxyingServiceServletModuleWithAutoAuthorization(this.serviceProperties, PACKAGE_NAMES),
 					new JpaPersistModule(JPA_UNIT)
 				},
 				this.serviceProperties).getInjector();
