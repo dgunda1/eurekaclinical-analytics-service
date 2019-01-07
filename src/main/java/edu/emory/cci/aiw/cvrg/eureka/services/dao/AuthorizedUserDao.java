@@ -1,5 +1,7 @@
 package edu.emory.cci.aiw.cvrg.eureka.services.dao;
 
+import edu.emory.cci.aiw.cvrg.eureka.services.entity.AuthorizedRoleEntity;
+
 /*
  * #%L
  * Eureka Common
@@ -50,6 +52,6 @@ import org.eurekaclinical.standardapis.dao.UserDao;
  * @author hrathod
  *
  */
-public interface AuthorizedUserDao extends UserDao<AuthorizedUserEntity> {
+public interface AuthorizedUserDao extends UserDao<AuthorizedRoleEntity,AuthorizedUserEntity> {
 	
 }
