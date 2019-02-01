@@ -67,5 +67,11 @@ public class JpaUserDao extends AbstractJpaUserDao<AuthorizedRoleEntity,Authoriz
 	public JpaUserDao(Provider<EntityManager> inEMProvider) {
 		super(AuthorizedUserEntity.class, inEMProvider);
 	}
+
+	@Override
+	public AuthorizedUserEntity newUser() {
+		return new AuthorizedUserEntity();
+	}
+	
 	
 }

@@ -99,9 +99,6 @@ class AppModule extends AbstractAppModule {
     @Override
     protected void configure() {
     	super.configure();
-        
-    	
-    	
         bind(AnalyticsServiceRoleDao.class).to(JpaRoleDao.class); 
         bind(new TypeLiteral<UserDao<AuthorizedRoleEntity, AuthorizedUserEntity>>() {}).to(JpaUserDao.class);
         bind(new TypeLiteral<RoleDao<AuthorizedRoleEntity>>() {}).to(JpaRoleDao.class);
