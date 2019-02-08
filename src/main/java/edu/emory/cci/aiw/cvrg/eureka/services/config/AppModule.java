@@ -67,10 +67,13 @@ import edu.emory.cci.aiw.cvrg.eureka.services.dao.ThresholdsOperatorDao;
 import edu.emory.cci.aiw.cvrg.eureka.services.dao.TimeUnitDao;
 import edu.emory.cci.aiw.cvrg.eureka.services.dao.ValueComparatorDao;
 import edu.emory.cci.aiw.cvrg.eureka.services.entity.AuthorizedRoleEntity;
+import edu.emory.cci.aiw.cvrg.eureka.services.entity.AuthorizedUserEntity;
 import edu.emory.cci.aiw.cvrg.eureka.services.entity.UserTemplateEntity;
 import edu.emory.cci.aiw.cvrg.eureka.services.finder.PropositionFinder;
 import edu.emory.cci.aiw.cvrg.eureka.services.finder.SystemPropositionFinder;
 import edu.emory.cci.aiw.cvrg.eureka.services.dao.PhenotypeEntityDao;
+
+import org.eurekaclinical.common.config.AbstractAppModule;
 
 import org.eurekaclinical.standardapis.dao.RoleDao;
 import org.eurekaclinical.standardapis.dao.UserDao;
@@ -84,18 +87,20 @@ import org.eurekaclinical.standardapis.entity.UserEntity;
  * @author hrathod
  *
  */
-class AppModule extends AbstractModule {
+class AppModule extends AbstractAppModule {
 
     private final EtlClientProvider etlClientProvider;
     
     AppModule(EtlClientProvider inEtlClientProvider) {
+    	super(JpaUserDao.class, JpaUserTemplateDao.class);
         this.etlClientProvider = inEtlClientProvider;
     }
 
     @Override
     protected void configure() {
-        bind(new TypeLiteral<UserDao<? extends UserEntity<? extends RoleEntity>>>() {}).to(JpaUserDao.class);
+    	super.configure();
         bind(AnalyticsServiceRoleDao.class).to(JpaRoleDao.class); 
+        bind(new TypeLiteral<UserDao<AuthorizedRoleEntity, AuthorizedUserEntity>>() {}).to(JpaUserDao.class);
         bind(new TypeLiteral<RoleDao<AuthorizedRoleEntity>>() {}).to(JpaRoleDao.class);
         bind(new TypeLiteral<UserTemplateDao<AuthorizedRoleEntity, UserTemplateEntity>>() {}).to(JpaUserTemplateDao.class);
         bind(AuthorizedUserDao.class).to(JpaUserDao.class);
